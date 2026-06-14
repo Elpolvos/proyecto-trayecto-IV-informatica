@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
-import { Text, Card, Button, IconButton, Divider } from 'react-native-paper';
+import { Text, Card, Button, IconButton, Divider, Surface } from 'react-native-paper';
 import { useAuth } from '../../contexts/AuthContext';
+import { Colors } from '../../utils/colors';
 import { useNavigation } from '@react-navigation/native';
 import type { NavigationProp } from '@react-navigation/native';
 
@@ -28,44 +29,44 @@ export default function AdminDashboardScreen() {
     {
       title: 'Estudiantes',
       icon: 'account-group',
-      description: 'Gestionar estudiantes',
+      description: 'Gestionar',
       route: 'EstudiantesList',
-      color: '#1565c0',
+      color: '#4F46E5', // Indigo
     },
     {
       title: 'Docentes',
       icon: 'account-tie',
-      description: 'Gestionar docentes',
+      description: 'Gestionar',
       route: 'DocentesList',
-      color: '#2e7d32',
+      color: '#10B981', // Emerald
     },
     {
       title: 'Secciones',
       icon: 'school',
-      description: 'Gestionar secciones',
+      description: 'Gestionar',
       route: 'SeccionesList',
-      color: '#ed6c02',
+      color: '#F59E0B', // Amber
     },
     {
       title: 'Asignaturas',
       icon: 'book-open-page-variant',
-      description: 'Gestionar materias',
+      description: 'Gestionar',
       route: 'AsignaturasList',
-      color: '#9c27b0',
+      color: '#8B5CF6', // Violet
     },
     {
       title: 'Evaluaciones',
       icon: 'clipboard-list',
-      description: 'Configurar evaluaciones',
+      description: 'Configurar',
       route: 'EvaluacionesList',
-      color: '#d32f2f',
+      color: '#EC4899', // Pink
     },
     {
       title: 'Notas Finales',
       icon: 'grade',
-      description: 'Ver notas finales',
+      description: 'Ver todo',
       route: 'NotasFinales',
-      color: '#ff9800',
+      color: '#06B6D4', // Cyan
     },
   ];
 
@@ -148,81 +149,101 @@ export default function AdminDashboardScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: Colors.background,
   },
   header: {
-    backgroundColor: '#1565c0',
-    padding: 20,
-    paddingTop: 50,
-    paddingBottom: 20,
+    backgroundColor: Colors.cardAdmin,
+    padding: 24,
+    paddingTop: 60,
+    paddingBottom: 30,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    elevation: 8,
+    shadowColor: Colors.cardAdmin,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
   },
   welcomeText: {
     color: 'white',
     fontWeight: 'bold',
   },
   roleText: {
-    color: '#bbdef5',
+    color: 'rgba(255,255,255,0.8)',
     marginTop: 4,
+    fontWeight: '500',
   },
   logoutButton: {
-    borderRadius: 8,
+    borderRadius: 12,
+    backgroundColor: 'rgba(255,255,255,0.2)',
   },
   statsContainer: {
     flexDirection: 'row',
     padding: 16,
+    marginTop: -20,
     gap: 12,
   },
   statCard: {
     flex: 1,
     backgroundColor: 'white',
-    elevation: 2,
-    borderRadius: 12,
+    elevation: 4,
+    borderRadius: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   statNumber: {
     fontWeight: 'bold',
-    color: '#1565c0',
+    color: Colors.primary,
   },
   menuContainer: {
     flex: 1,
     paddingHorizontal: 16,
+    marginTop: 10,
   },
   menuTitle: {
     marginBottom: 16,
-    fontWeight: '600',
+    fontWeight: 'bold',
+    color: Colors.text,
   },
   menuGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     gap: 12,
+    paddingBottom: 20,
   },
   menuCard: {
     width: '48%',
     marginBottom: 16,
     backgroundColor: 'white',
-    elevation: 2,
-    borderRadius: 12,
+    elevation: 3,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.05)',
   },
   menuCardContent: {
     alignItems: 'center',
-    paddingVertical: 16,
+    paddingVertical: 20,
   },
   iconContainer: {
-    borderRadius: 50,
-    padding: 8,
+    borderRadius: 20,
+    padding: 4,
     marginBottom: 8,
   },
   menuItemTitle: {
     fontWeight: 'bold',
     textAlign: 'center',
     marginTop: 8,
+    color: Colors.text,
   },
   menuItemDescription: {
     textAlign: 'center',
-    color: '#666',
+    color: Colors.textLight,
     marginTop: 4,
   },
 });

@@ -11,8 +11,10 @@ import {
   Button,
   Text,
   ActivityIndicator,
+  Surface,
 } from 'react-native-paper';
 import { useAuth } from '../../contexts/AuthContext';
+import { Colors } from '../../utils/colors';
 import { useNavigation } from '@react-navigation/native';
 import type { NavigationProp } from '@react-navigation/native';
 
@@ -100,6 +102,9 @@ export default function LoginScreen() {
         </View>
 
         <View style={styles.form}>
+          <Text variant="headlineSmall" style={{ marginBottom: 20, textAlign: 'center', fontWeight: 'bold' }}>
+            Acceso
+          </Text>
           <TextInput
             mode="outlined"
             label="Email o DNI"
@@ -160,7 +165,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: Colors.background,
   },
   content: {
     flex: 1,
@@ -174,15 +179,25 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     marginBottom: 8,
-    color: '#1e3a5f',
+    color: Colors.primary,
     fontWeight: 'bold',
+    letterSpacing: 1,
   },
   subtitle: {
     textAlign: 'center',
-    color: '#666',
+    color: Colors.textLight,
+    fontWeight: '500',
   },
   form: {
     marginTop: 20,
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 16,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
   },
   input: {
     marginBottom: 16,
@@ -190,7 +205,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 24,
-    borderRadius: 8,
+    borderRadius: 12,
     paddingVertical: 4,
   },
   buttonContent: {
@@ -199,11 +214,14 @@ const styles = StyleSheet.create({
   infoContainer: {
     marginTop: 32,
     padding: 16,
-    backgroundColor: '#e3f2fd',
-    borderRadius: 8,
+    backgroundColor: Colors.primary + '10', // Light primary background
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: Colors.primary + '20',
   },
   infoText: {
-    color: '#1565c0',
-    marginVertical: 2,
+    color: Colors.primary,
+    marginVertical: 4,
+    fontWeight: '500',
   },
 });

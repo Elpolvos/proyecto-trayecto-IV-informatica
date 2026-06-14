@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { Text, Card, Button, IconButton } from 'react-native-paper';
 import { useAuth } from '../../contexts/AuthContext';
+import { Colors } from '../../utils/colors';
 import { useNavigation } from '@react-navigation/native';
 
 export default function DocenteDashboardScreen() {
@@ -63,33 +64,43 @@ export default function DocenteDashboardScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: Colors.background,
   },
   header: {
-    backgroundColor: '#2e7d32',
-    padding: 20,
-    paddingTop: 50,
-    paddingBottom: 20,
+    backgroundColor: Colors.cardDocente,
+    padding: 24,
+    paddingTop: 60,
+    paddingBottom: 30,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    elevation: 8,
+    shadowColor: Colors.cardDocente,
   },
   welcomeText: {
     color: 'white',
     fontWeight: 'bold',
   },
   roleText: {
-    color: '#c8e6c9',
+    color: 'rgba(255,255,255,0.8)',
     marginTop: 4,
+    fontWeight: '500',
   },
   logoutButton: {
-    borderRadius: 8,
+    borderRadius: 12,
+    backgroundColor: 'rgba(255,255,255,0.2)',
   },
   content: {
     padding: 16,
+    marginTop: 10,
   },
   card: {
     marginBottom: 16,
-    elevation: 2,
+    elevation: 4,
+    borderRadius: 20,
+    backgroundColor: 'white',
+    overflow: 'hidden',
   },
 });
