@@ -1,0 +1,888 @@
+2026-06-12 00:58:00 | ERROR    | colegio_api | logging_middleware.py:41 | ERROR | POST http://127.0.0.1:8000/auth/login | (psycopg2.errors.UndefinedTable) no existe la relación «administradores»
+LINE 2: FROM administradores 
+             ^
+
+[SQL: SELECT administradores.id_administrador AS administradores_id_administrador, administradores.dni_administrador AS administradores_dni_administrador, administradores.apellido_administrador AS administradores_apellido_administrador, administradores.nombre_administrador AS administradores_nombre_administrador, administradores.fechanacimiento_administrador AS administradores_fechanacimiento_administrador, administradores.sexo_administrador AS administradores_sexo_administrador, administradores.direccion_administrador AS administradores_direccion_administrador, administradores.telefono_administrador AS administradores_telefono_administrador, administradores.email_administrador AS administradores_email_administrador, administradores.contrasena_administrador AS administradores_contrasena_administrador, administradores.estatus_administrador AS administradores_estatus_administrador 
+FROM administradores 
+WHERE administradores.email_administrador = %(email_administrador_1)s OR administradores.dni_administrador = %(dni_administrador_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'email_administrador_1': 'string', 'dni_administrador_1': 'string', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: no existe la relación «administradores»
+LINE 2: FROM administradores 
+             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\backend\src\api\middleware\logging_middleware.py", line 23, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 328, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\backend\src\api\routes\auth.py", line 61, in login
+    ).first()
+      ~~~~~^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2766, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedTable) no existe la relación «administradores»
+LINE 2: FROM administradores 
+             ^
+
+[SQL: SELECT administradores.id_administrador AS administradores_id_administrador, administradores.dni_administrador AS administradores_dni_administrador, administradores.apellido_administrador AS administradores_apellido_administrador, administradores.nombre_administrador AS administradores_nombre_administrador, administradores.fechanacimiento_administrador AS administradores_fechanacimiento_administrador, administradores.sexo_administrador AS administradores_sexo_administrador, administradores.direccion_administrador AS administradores_direccion_administrador, administradores.telefono_administrador AS administradores_telefono_administrador, administradores.email_administrador AS administradores_email_administrador, administradores.contrasena_administrador AS administradores_contrasena_administrador, administradores.estatus_administrador AS administradores_estatus_administrador 
+FROM administradores 
+WHERE administradores.email_administrador = %(email_administrador_1)s OR administradores.dni_administrador = %(dni_administrador_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'email_administrador_1': 'string', 'dni_administrador_1': 'string', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-06-13 00:42:28 | ERROR    | colegio_api | logging_middleware.py:41 | ERROR | POST http://127.0.0.1:8000/roles/create | Could not determine join condition between parent/child tables on relationship Docentes.asignatura - there are no foreign keys linking these tables.  Ensure that referencing columns are associated with a ForeignKey or ForeignKeyConstraint, or specify a 'primaryjoin' expression.
+Traceback (most recent call last):
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2434, in _determine_joins
+    self.primaryjoin = join_condition(
+                       ~~~~~~~~~~~~~~^
+        self.parent_persist_selectable,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        consider_as_foreign_keys=consider_as_foreign_keys,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\sql\util.py", line 121, in join_condition
+    return Join._join_condition(
+           ~~~~~~~~~~~~~~~~~~~~^
+        a,
+        ^^
+    ...<2 lines>...
+        consider_as_foreign_keys=consider_as_foreign_keys,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\sql\selectable.py", line 1453, in _join_condition
+    raise exc.NoForeignKeysError(
+    ...<3 lines>...
+    )
+sqlalchemy.exc.NoForeignKeysError: Can't find any foreign key relationships between 'docentes' and 'asignaturas'.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV-Nuevo\backend\src\api\middleware\logging_middleware.py", line 23, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV-Nuevo\backend\src\api\routes\routes_rol.py", line 27, in create_rol
+    db_rol = rol_crud.get_rol_por_tipo(db, tipo_rol=rol.tipo_rol)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV-Nuevo\backend\src\crud\crud_rol.py", line 30, in get_rol_por_tipo
+    return db.query(Roles).filter(Roles.tipo_rol == tipo_rol).first()
+           ~~~~~~~~^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2941, in query
+    return self._query_cls(entities, self, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 277, in __init__
+    self._set_entities(entities)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 290, in _set_entities
+    coercions.expect(
+    ~~~~~~~~~~~~~~~~^
+        roles.ColumnsClauseRole,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        post_inspect=True,
+        ^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\sql\coercions.py", line 389, in expect
+    insp._post_inspect
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1235, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ~~~~~~~~~^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2733, in _post_inspect
+    self._check_configure()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2410, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4227, in _configure_registries
+    _do_configure_registries(registries, cascade)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4268, in _do_configure_registries
+    mapper._post_configure_properties()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2427, in _post_configure_properties
+    prop.init()
+    ~~~~~~~~~^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\interfaces.py", line 595, in init
+    self.do_init()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1657, in do_init
+    self._setup_join_conditions()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1895, in _setup_join_conditions
+    self._join_condition = jc = JoinCondition(
+                                ~~~~~~~~~~~~~^
+        parent_persist_selectable=self.parent.persist_selectable,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<14 lines>...
+        can_be_synced_fn=self._columns_are_mapped,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2321, in __init__
+    self._determine_joins()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2455, in _determine_joins
+    raise sa_exc.NoForeignKeysError(
+    ...<7 lines>...
+    ) from nfe
+sqlalchemy.exc.NoForeignKeysError: Could not determine join condition between parent/child tables on relationship Docentes.asignatura - there are no foreign keys linking these tables.  Ensure that referencing columns are associated with a ForeignKey or ForeignKeyConstraint, or specify a 'primaryjoin' expression.
+2026-06-13 00:51:40 | ERROR    | colegio_api | logging_middleware.py:41 | ERROR | POST http://127.0.0.1:8000/usuarios/create | 'UsuarioCreate' object has no attribute 'email'
+Traceback (most recent call last):
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV-Nuevo\backend\src\api\middleware\logging_middleware.py", line 23, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV-Nuevo\backend\src\api\routes\routes_usuario.py", line 41, in create_usuario
+    db_usuario = usuario_crud.get_usuario_por_email(db, email=usuario.email)
+                                                              ^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\pydantic\main.py", line 1042, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'UsuarioCreate' object has no attribute 'email'
+2026-06-13 00:53:48 | ERROR    | colegio_api | logging_middleware.py:41 | ERROR | POST http://127.0.0.1:8000/usuarios/create | 'fecha_registro_usuario' is an invalid keyword argument for Usuarios
+Traceback (most recent call last):
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV-Nuevo\backend\src\api\middleware\logging_middleware.py", line 23, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV-Nuevo\backend\src\api\routes\routes_usuario.py", line 44, in create_usuario
+    return usuario_crud.create_usuario(db=db, usuario=usuario)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV-Nuevo\backend\src\crud\crud_usuario.py", line 46, in create_usuario
+    db_usuario = Usuarios(fk_rol_id = usuario.fk_rol_id,
+                          dni_usuario = usuario.dni_usuario,
+    ...<8 lines>...
+                          fecha_registro_usuario = usuario.fecha_registro,
+                          )
+  File "<string>", line 4, in __init__
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\state.py", line 596, in _initialize_instance
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\state.py", line 594, in _initialize_instance
+    manager.original_init(*mixed[1:], **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 2179, in _declarative_constructor
+    raise TypeError(
+        "%r is an invalid keyword argument for %s" % (k, cls_.__name__)
+    )
+TypeError: 'fecha_registro_usuario' is an invalid keyword argument for Usuarios
+2026-06-13 00:54:10 | ERROR    | colegio_api | logging_middleware.py:41 | ERROR | POST http://127.0.0.1:8000/usuarios/create | 1 validation error:
+  {'type': 'string_type', 'loc': ('response', 'fechanacimiento_usuario'), 'msg': 'Input should be a valid string', 'input': datetime.date(2000, 10, 10)}
+
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV-Nuevo\backend\src\api\routes\routes_usuario.py", line 39, in create_usuario
+    POST /usuarios/create
+Traceback (most recent call last):
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV-Nuevo\backend\src\api\middleware\logging_middleware.py", line 23, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 695, in app
+    content = await serialize_response(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<11 lines>...
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 300, in serialize_response
+    raise ResponseValidationError(
+    ...<3 lines>...
+    )
+fastapi.exceptions.ResponseValidationError: 1 validation error:
+  {'type': 'string_type', 'loc': ('response', 'fechanacimiento_usuario'), 'msg': 'Input should be a valid string', 'input': datetime.date(2000, 10, 10)}
+
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV-Nuevo\backend\src\api\routes\routes_usuario.py", line 39, in create_usuario
+    POST /usuarios/create
+2026-06-13 00:57:06 | ERROR    | colegio_api | logging_middleware.py:41 | ERROR | POST http://127.0.0.1:8000/usuarios/create | (psycopg2.errors.UniqueViolation) llave duplicada viola restricción de unicidad «usuarios_telefono_usuario_key»
+DETAIL:  Ya existe la llave (telefono_usuario)=(0426-1234-5678).
+
+[SQL: INSERT INTO usuarios (fk_rol_id, dni_usuario, apellido_usuario, nombre_usuario, fechanacimiento_usuario, sexo_usuario, direccion_usuario, telefono_usuario, email_usuario, contrasena_usuario, fecha_registro, estatus_usuario) VALUES (%(fk_rol_id)s, %(dni_usuario)s, %(apellido_usuario)s, %(nombre_usuario)s, %(fechanacimiento_usuario)s, %(sexo_usuario)s, %(direccion_usuario)s, %(telefono_usuario)s, %(email_usuario)s, %(contrasena_usuario)s, %(fecha_registro)s, %(estatus_usuario)s) RETURNING usuarios.id_usuario]
+[parameters: {'fk_rol_id': 2, 'dni_usuario': '77111333', 'apellido_usuario': 'Usuario', 'nombre_usuario': 'DocentePrueba', 'fechanacimiento_usuario': datetime.date(2001, 10, 10), 'sexo_usuario': 'masculino', 'direccion_usuario': 'Venezuela', 'telefono_usuario': '0426-1234-5678', 'email_usuario': 'docente123gmail.com', 'contrasena_usuario': '87654321', 'fecha_registro': datetime.date(2026, 6, 13), 'estatus_usuario': True}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+Traceback (most recent call last):
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UniqueViolation: llave duplicada viola restricción de unicidad «usuarios_telefono_usuario_key»
+DETAIL:  Ya existe la llave (telefono_usuario)=(0426-1234-5678).
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV-Nuevo\backend\src\api\middleware\logging_middleware.py", line 23, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV-Nuevo\backend\src\api\routes\routes_usuario.py", line 44, in create_usuario
+    return usuario_crud.create_usuario(db=db, usuario=usuario)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV-Nuevo\backend\src\crud\crud_usuario.py", line 59, in create_usuario
+    db.commit()
+    ~~~~~~~~~^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2030, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1311, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1286, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4331, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4466, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4427, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 466, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+        statement,
+        params,
+        execution_options=execution_options,
+    )
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.IntegrityError: (psycopg2.errors.UniqueViolation) llave duplicada viola restricción de unicidad «usuarios_telefono_usuario_key»
+DETAIL:  Ya existe la llave (telefono_usuario)=(0426-1234-5678).
+
+[SQL: INSERT INTO usuarios (fk_rol_id, dni_usuario, apellido_usuario, nombre_usuario, fechanacimiento_usuario, sexo_usuario, direccion_usuario, telefono_usuario, email_usuario, contrasena_usuario, fecha_registro, estatus_usuario) VALUES (%(fk_rol_id)s, %(dni_usuario)s, %(apellido_usuario)s, %(nombre_usuario)s, %(fechanacimiento_usuario)s, %(sexo_usuario)s, %(direccion_usuario)s, %(telefono_usuario)s, %(email_usuario)s, %(contrasena_usuario)s, %(fecha_registro)s, %(estatus_usuario)s) RETURNING usuarios.id_usuario]
+[parameters: {'fk_rol_id': 2, 'dni_usuario': '77111333', 'apellido_usuario': 'Usuario', 'nombre_usuario': 'DocentePrueba', 'fechanacimiento_usuario': datetime.date(2001, 10, 10), 'sexo_usuario': 'masculino', 'direccion_usuario': 'Venezuela', 'telefono_usuario': '0426-1234-5678', 'email_usuario': 'docente123gmail.com', 'contrasena_usuario': '87654321', 'fecha_registro': datetime.date(2026, 6, 13), 'estatus_usuario': True}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-06-13 00:58:27 | ERROR    | colegio_api | logging_middleware.py:41 | ERROR | POST http://127.0.0.1:8000/usuarios/create | (psycopg2.errors.UniqueViolation) llave duplicada viola restricción de unicidad «usuarios_telefono_usuario_key»
+DETAIL:  Ya existe la llave (telefono_usuario)=(0426-1234-5678).
+
+[SQL: INSERT INTO usuarios (fk_rol_id, dni_usuario, apellido_usuario, nombre_usuario, fechanacimiento_usuario, sexo_usuario, direccion_usuario, telefono_usuario, email_usuario, contrasena_usuario, fecha_registro, estatus_usuario) VALUES (%(fk_rol_id)s, %(dni_usuario)s, %(apellido_usuario)s, %(nombre_usuario)s, %(fechanacimiento_usuario)s, %(sexo_usuario)s, %(direccion_usuario)s, %(telefono_usuario)s, %(email_usuario)s, %(contrasena_usuario)s, %(fecha_registro)s, %(estatus_usuario)s) RETURNING usuarios.id_usuario]
+[parameters: {'fk_rol_id': 2, 'dni_usuario': '77111333', 'apellido_usuario': 'Usuario', 'nombre_usuario': 'DocentePrueba', 'fechanacimiento_usuario': datetime.date(2001, 10, 10), 'sexo_usuario': 'masculino', 'direccion_usuario': 'Venezuela', 'telefono_usuario': '0426-1234-5678', 'email_usuario': 'docente123gmail.com', 'contrasena_usuario': '87654321', 'fecha_registro': datetime.date(2026, 6, 13), 'estatus_usuario': True}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+Traceback (most recent call last):
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UniqueViolation: llave duplicada viola restricción de unicidad «usuarios_telefono_usuario_key»
+DETAIL:  Ya existe la llave (telefono_usuario)=(0426-1234-5678).
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV-Nuevo\backend\src\api\middleware\logging_middleware.py", line 23, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV-Nuevo\backend\src\api\routes\routes_usuario.py", line 44, in create_usuario
+    return usuario_crud.create_usuario(db=db, usuario=usuario)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV-Nuevo\backend\src\crud\crud_usuario.py", line 59, in create_usuario
+    db.commit()
+    ~~~~~~~~~^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2030, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1311, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1286, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4331, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4466, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4427, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 466, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+        statement,
+        params,
+        execution_options=execution_options,
+    )
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Luis\Desktop\App-Proyecto-IV\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.IntegrityError: (psycopg2.errors.UniqueViolation) llave duplicada viola restricción de unicidad «usuarios_telefono_usuario_key»
+DETAIL:  Ya existe la llave (telefono_usuario)=(0426-1234-5678).
+
+[SQL: INSERT INTO usuarios (fk_rol_id, dni_usuario, apellido_usuario, nombre_usuario, fechanacimiento_usuario, sexo_usuario, direccion_usuario, telefono_usuario, email_usuario, contrasena_usuario, fecha_registro, estatus_usuario) VALUES (%(fk_rol_id)s, %(dni_usuario)s, %(apellido_usuario)s, %(nombre_usuario)s, %(fechanacimiento_usuario)s, %(sexo_usuario)s, %(direccion_usuario)s, %(telefono_usuario)s, %(email_usuario)s, %(contrasena_usuario)s, %(fecha_registro)s, %(estatus_usuario)s) RETURNING usuarios.id_usuario]
+[parameters: {'fk_rol_id': 2, 'dni_usuario': '77111333', 'apellido_usuario': 'Usuario', 'nombre_usuario': 'DocentePrueba', 'fechanacimiento_usuario': datetime.date(2001, 10, 10), 'sexo_usuario': 'masculino', 'direccion_usuario': 'Venezuela', 'telefono_usuario': '0426-1234-5678', 'email_usuario': 'docente123gmail.com', 'contrasena_usuario': '87654321', 'fecha_registro': datetime.date(2026, 6, 13), 'estatus_usuario': True}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
