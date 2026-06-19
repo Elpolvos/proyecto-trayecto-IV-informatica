@@ -3,13 +3,13 @@ import { View, StyleSheet } from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
-export default function EstudiantesRegistroScreen() {
+export default function AsignaturasListScreen() {
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      <Text variant="headlineSmall">Registro de Estudiantes</Text>
-      <Text variant="bodyMedium">Módulo para el alta de nuevos alumnos</Text>
+      <Text variant="headlineSmall">Registro de Materias</Text>
+      <Text variant="bodyMedium">Módulo para la gestión de asignaturas</Text>
       <Button onPress={() => navigation.goBack()} style={styles.button}>
         Volver
       </Button>

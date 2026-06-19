@@ -27,70 +27,78 @@ export default function AdminDashboardScreen() {
 
   const menuItems = [
     {
-      title: 'Estudiantes',
-      icon: 'account-group',
-      description: 'Gestionar',
-      route: 'EstudiantesList',
-      color: '#4F46E5', // Indigo
+      title: 'Registro de Estudiantes',
+      icon: 'account-plus',
+      description: 'Alta de alumnos',
+      route: 'EstudiantesRegistro',
+      color: '#4F46E5',
     },
     {
-      title: 'Docentes',
-      icon: 'account-tie',
-      description: 'Gestionar',
+      title: 'Registro de Docentes',
+      icon: 'account-tie-voice',
+      description: 'Alta de profesores',
       route: 'DocentesList',
-      color: '#10B981', // Emerald
+      color: '#10B981',
     },
     {
-      title: 'Secciones',
-      icon: 'school',
-      description: 'Gestionar',
+      title: 'Registro de Secciones',
+      icon: 'door-open',
+      description: 'Aulas y grados',
       route: 'SeccionesList',
-      color: '#F59E0B', // Amber
+      color: '#F59E0B',
     },
     {
-      title: 'Asignaturas',
-      icon: 'book-open-page-variant',
-      description: 'Gestionar',
+      title: 'Registro de Materias',
+      icon: 'book-open-outline',
+      description: 'Plan de estudios',
       route: 'AsignaturasList',
-      color: '#8B5CF6', // Violet
+      color: '#8B5CF6',
     },
     {
-      title: 'Evaluaciones',
-      icon: 'clipboard-list',
-      description: 'Configurar',
-      route: 'EvaluacionesList',
-      color: '#EC4899', // Pink
+      title: 'Listado Docentes (PDF)',
+      icon: 'file-pdf-box',
+      description: 'Docentes y Materias',
+      action: 'pdf_docentes',
+      color: '#E91E63',
     },
     {
-      title: 'Notas Finales',
-      icon: 'grade',
-      description: 'Ver todo',
-      route: 'NotasFinales',
-      color: '#06B6D4', // Cyan
+      title: 'Listado Estudiantes (PDF)',
+      icon: 'file-pdf-box',
+      description: 'Por Secciones',
+      action: 'pdf_estudiantes',
+      color: '#FF5722',
     },
   ];
+
+  const handleAction = (item: any) => {
+    if (item.action === 'pdf_docentes') {
+      Alert.alert('Generando PDF', 'Generando listado de docentes y materias...');
+    } else if (item.action === 'pdf_estudiantes') {
+      Alert.alert('Generando PDF', 'Generando listado de estudiantes por secciones...');
+    } else if (item.route) {
+      navigation.navigate(item.route as any);
+    }
+  };
 
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <View>
-          <Text variant="headlineMedium" style={styles.welcomeText}>
-            ¡Bienvenido, {user?.nombre}!
+        <View style={{ alignItems: 'center', flex: 1 }}>
+          <Text style={styles.welcomeText}>
+            ¡BIENVENIDO, {user?.nombre?.toUpperCase()}!
           </Text>
-          <Text variant="bodyMedium" style={styles.roleText}>
-            Administrador del Sistema
+          <Text style={styles.roleText}>
+            ADMINISTRADOR
           </Text>
         </View>
-        <Button
-          mode="contained"
-          onPress={handleLogout}
+        <IconButton
           icon="logout"
-          style={styles.logoutButton}
-          buttonColor="#d32f2f"
-        >
-          Salir
-        </Button>
+          iconColor="white"
+          size={24}
+          onPress={handleLogout}
+          style={styles.logoutIconButton}
+        />
       </View>
 
       {/* Stats Cards */}
@@ -125,7 +133,7 @@ export default function AdminDashboardScreen() {
             <Card
               key={index}
               style={styles.menuCard}
-              onPress={() => navigation.navigate(item.route as any)}
+              onPress={() => handleAction(item)}
             >
               <Card.Content style={styles.menuCardContent}>
                 <View style={[styles.iconContainer, { backgroundColor: item.color + '15' }]}>
@@ -149,42 +157,42 @@ export default function AdminDashboardScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: '#E3F2FD',
   },
   header: {
-    backgroundColor: Colors.cardAdmin,
-    padding: 24,
-    paddingTop: 60,
-    paddingBottom: 30,
+    backgroundColor: '#1565C0',
+    padding: 20,
+    paddingTop: 50,
+    paddingBottom: 20,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-    elevation: 8,
-    shadowColor: Colors.cardAdmin,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
+    elevation: 5,
   },
   welcomeText: {
     color: 'white',
     fontWeight: 'bold',
+    fontSize: 16,
+    textAlign: 'center',
   },
   roleText: {
-    color: 'rgba(255,255,255,0.8)',
-    marginTop: 4,
-    fontWeight: '500',
+    color: '#BBDEFB',
+    marginTop: 2,
+    fontWeight: '700',
+    fontSize: 12,
+    letterSpacing: 1,
   },
-  logoutButton: {
-    borderRadius: 12,
-    backgroundColor: 'rgba(255,255,255,0.2)',
+  logoutIconButton: {
+    position: 'absolute',
+    right: 10,
+    top: 45,
   },
   statsContainer: {
     flexDirection: 'row',
-    padding: 16,
-    marginTop: -20,
-    gap: 12,
+    padding: 12,
+    marginTop: -15,
+    gap: 8,
   },
   statCard: {
     flex: 1,
@@ -198,7 +206,8 @@ const styles = StyleSheet.create({
   },
   statNumber: {
     fontWeight: 'bold',
-    color: Colors.primary,
+    color: '#1565C0',
+    fontSize: 18,
   },
   menuContainer: {
     flex: 1,
@@ -206,9 +215,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   menuTitle: {
-    marginBottom: 16,
+    marginBottom: 12,
     fontWeight: 'bold',
-    color: Colors.text,
+    color: '#455A64',
+    textAlign: 'center',
+    fontSize: 16,
+    textTransform: 'uppercase',
   },
   menuGrid: {
     flexDirection: 'row',

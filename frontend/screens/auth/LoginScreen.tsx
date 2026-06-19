@@ -56,6 +56,7 @@ export default function LoginScreen() {
       console.log('Usuario autenticado - Tipo:', userType);
       
       switch (userType) {
+        case 'admin':
         case 'administrador':
           console.log('Redirigiendo a AdminDashboard');
           navigation.reset({
