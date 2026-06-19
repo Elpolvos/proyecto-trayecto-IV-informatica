@@ -11,6 +11,8 @@ import AdminDashboardScreen from '../screens/admin/AdminDashboardScreen';
 import EstudiantesListScreen from '../screens/admin/EstudiantesListScreen';
 import DocentesListScreen from '../screens/admin/DocentesListScreen';
 import SeccionesListScreen from '../screens/admin/SeccionesListScreen';
+import AsignaturasListScreen from '../screens/admin/AsignaturasListScreen';
+import EstudiantesRegistroScreen from '../screens/admin/EstudiantesRegistroScreen';
 
 // Pantallas de Docente
 import DocenteDashboardScreen from '../screens/docente/DocenteDashboardScreen';
@@ -41,13 +43,13 @@ export default function AppNavigator() {
         />
       ) : (
         // Stack según el tipo de usuario
-        user.tipo === 'admin' ? (
+        user.tipo === 'admin' || user.tipo === 'administrador' ? (
           // Stack de Administrador
           <>
             <Stack.Screen 
               name="AdminDashboard" 
               component={AdminDashboardScreen}
-              options={{ title: 'Panel de Administración', headerLeft: () => null }}
+              options={{ headerShown: false }}
             />
             <Stack.Screen 
               name="EstudiantesList" 
@@ -64,6 +66,16 @@ export default function AppNavigator() {
               component={SeccionesListScreen}
               options={{ title: 'Gestión de Secciones' }}
             />
+            <Stack.Screen
+              name="AsignaturasList"
+              component={AsignaturasListScreen}
+              options={{ title: 'Gestión de Materias' }}
+            />
+            <Stack.Screen
+              name="EstudiantesRegistro"
+              component={EstudiantesRegistroScreen}
+              options={{ title: 'Registro de Estudiantes' }}
+            />
           </>
         ) : user.tipo === 'docente' ? (
           // Stack de Docente
@@ -71,7 +83,7 @@ export default function AppNavigator() {
             <Stack.Screen 
               name="DocenteDashboard" 
               component={DocenteDashboardScreen}
-              options={{ title: 'Panel Docente', headerLeft: () => null }}
+              options={{ headerShown: false }}
             />
           </>
         ) : (
@@ -80,7 +92,7 @@ export default function AppNavigator() {
             <Stack.Screen 
               name="EstudianteDashboard" 
               component={EstudianteDashboardScreen}
-              options={{ title: 'Panel Estudiante', headerLeft: () => null }}
+              options={{ headerShown: false }}
             />
           </>
         )

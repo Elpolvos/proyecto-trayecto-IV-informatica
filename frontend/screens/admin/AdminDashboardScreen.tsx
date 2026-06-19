@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
-import { Text, Card, Button, IconButton, Divider } from 'react-native-paper';
+import { Text, Card, Button, IconButton, Divider, Surface } from 'react-native-paper';
 import { useAuth } from '../../contexts/AuthContext';
+import { Colors } from '../../utils/colors';
 import { useNavigation } from '@react-navigation/native';
 import type { NavigationProp } from '@react-navigation/native';
 
@@ -26,70 +27,78 @@ export default function AdminDashboardScreen() {
 
   const menuItems = [
     {
-      title: 'Estudiantes',
-      icon: 'account-group',
-      description: 'Gestionar estudiantes',
-      route: 'EstudiantesList',
-      color: '#1565c0',
+      title: 'Registro de Estudiantes',
+      icon: 'account-plus',
+      description: 'Alta de alumnos',
+      route: 'EstudiantesRegistro',
+      color: '#4F46E5',
     },
     {
-      title: 'Docentes',
-      icon: 'account-tie',
-      description: 'Gestionar docentes',
+      title: 'Registro de Docentes',
+      icon: 'account-tie-voice',
+      description: 'Alta de profesores',
       route: 'DocentesList',
-      color: '#2e7d32',
+      color: '#10B981',
     },
     {
-      title: 'Secciones',
-      icon: 'school',
-      description: 'Gestionar secciones',
+      title: 'Registro de Secciones',
+      icon: 'door-open',
+      description: 'Aulas y grados',
       route: 'SeccionesList',
-      color: '#ed6c02',
+      color: '#F59E0B',
     },
     {
-      title: 'Asignaturas',
-      icon: 'book-open-page-variant',
-      description: 'Gestionar materias',
+      title: 'Registro de Materias',
+      icon: 'book-open-outline',
+      description: 'Plan de estudios',
       route: 'AsignaturasList',
-      color: '#9c27b0',
+      color: '#8B5CF6',
     },
     {
-      title: 'Evaluaciones',
-      icon: 'clipboard-list',
-      description: 'Configurar evaluaciones',
-      route: 'EvaluacionesList',
-      color: '#d32f2f',
+      title: 'Listado Docentes (PDF)',
+      icon: 'file-pdf-box',
+      description: 'Docentes y Materias',
+      action: 'pdf_docentes',
+      color: '#E91E63',
     },
     {
-      title: 'Notas Finales',
-      icon: 'grade',
-      description: 'Ver notas finales',
-      route: 'NotasFinales',
-      color: '#ff9800',
+      title: 'Listado Estudiantes (PDF)',
+      icon: 'file-pdf-box',
+      description: 'Por Secciones',
+      action: 'pdf_estudiantes',
+      color: '#FF5722',
     },
   ];
+
+  const handleAction = (item: any) => {
+    if (item.action === 'pdf_docentes') {
+      Alert.alert('Generando PDF', 'Generando listado de docentes y materias...');
+    } else if (item.action === 'pdf_estudiantes') {
+      Alert.alert('Generando PDF', 'Generando listado de estudiantes por secciones...');
+    } else if (item.route) {
+      navigation.navigate(item.route as any);
+    }
+  };
 
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <View>
-          <Text variant="headlineMedium" style={styles.welcomeText}>
-            ¡Bienvenido, {user?.nombre}!
+        <View style={{ alignItems: 'center', flex: 1 }}>
+          <Text style={styles.welcomeText}>
+            ¡BIENVENIDO, {user?.nombre?.toUpperCase()}!
           </Text>
-          <Text variant="bodyMedium" style={styles.roleText}>
-            Administrador del Sistema
+          <Text style={styles.roleText}>
+            ADMINISTRADOR
           </Text>
         </View>
-        <Button
-          mode="contained"
-          onPress={handleLogout}
+        <IconButton
           icon="logout"
-          style={styles.logoutButton}
-          buttonColor="#d32f2f"
-        >
-          Salir
-        </Button>
+          iconColor="white"
+          size={24}
+          onPress={handleLogout}
+          style={styles.logoutIconButton}
+        />
       </View>
 
       {/* Stats Cards */}
@@ -124,7 +133,7 @@ export default function AdminDashboardScreen() {
             <Card
               key={index}
               style={styles.menuCard}
-              onPress={() => navigation.navigate(item.route as any)}
+              onPress={() => handleAction(item)}
             >
               <Card.Content style={styles.menuCardContent}>
                 <View style={[styles.iconContainer, { backgroundColor: item.color + '15' }]}>
@@ -148,81 +157,105 @@ export default function AdminDashboardScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#E3F2FD',
   },
   header: {
-    backgroundColor: '#1565c0',
+    backgroundColor: '#1565C0',
     padding: 20,
     paddingTop: 50,
     paddingBottom: 20,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
+    elevation: 5,
   },
   welcomeText: {
     color: 'white',
     fontWeight: 'bold',
+    fontSize: 16,
+    textAlign: 'center',
   },
   roleText: {
-    color: '#bbdef5',
-    marginTop: 4,
+    color: '#BBDEFB',
+    marginTop: 2,
+    fontWeight: '700',
+    fontSize: 12,
+    letterSpacing: 1,
   },
-  logoutButton: {
-    borderRadius: 8,
+  logoutIconButton: {
+    position: 'absolute',
+    right: 10,
+    top: 45,
   },
   statsContainer: {
     flexDirection: 'row',
-    padding: 16,
-    gap: 12,
+    padding: 12,
+    marginTop: -15,
+    gap: 8,
   },
   statCard: {
     flex: 1,
     backgroundColor: 'white',
-    elevation: 2,
-    borderRadius: 12,
+    elevation: 4,
+    borderRadius: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   statNumber: {
     fontWeight: 'bold',
-    color: '#1565c0',
+    color: '#1565C0',
+    fontSize: 18,
   },
   menuContainer: {
     flex: 1,
     paddingHorizontal: 16,
+    marginTop: 10,
   },
   menuTitle: {
-    marginBottom: 16,
-    fontWeight: '600',
+    marginBottom: 12,
+    fontWeight: 'bold',
+    color: '#455A64',
+    textAlign: 'center',
+    fontSize: 16,
+    textTransform: 'uppercase',
   },
   menuGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     gap: 12,
+    paddingBottom: 20,
   },
   menuCard: {
     width: '48%',
     marginBottom: 16,
     backgroundColor: 'white',
-    elevation: 2,
-    borderRadius: 12,
+    elevation: 3,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.05)',
   },
   menuCardContent: {
     alignItems: 'center',
-    paddingVertical: 16,
+    paddingVertical: 20,
   },
   iconContainer: {
-    borderRadius: 50,
-    padding: 8,
+    borderRadius: 20,
+    padding: 4,
     marginBottom: 8,
   },
   menuItemTitle: {
     fontWeight: 'bold',
     textAlign: 'center',
     marginTop: 8,
+    color: Colors.text,
   },
   menuItemDescription: {
     textAlign: 'center',
-    color: '#666',
+    color: Colors.textLight,
     marginTop: 4,
   },
 });

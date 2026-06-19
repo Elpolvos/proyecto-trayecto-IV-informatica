@@ -32,6 +32,86 @@ interface BoletínData {
 }
 
 export const pdfService = {
+  generateDocentesMateriasHTML: (docentes: any[]): string => {
+    return `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="UTF-8">
+        <title>Listado de Docentes y Materias</title>
+        <style>
+          body { font-family: Arial, sans-serif; padding: 20px; }
+          h1 { color: #1565c0; text-align: center; }
+          table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+          th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+          th { background-color: #f2f2f2; color: #1565c0; }
+        </style>
+      </head>
+      <body>
+        <h1>Listado de Docentes y Materias</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Docente</th>
+              <th>DNI</th>
+              <th>Materia(s) Asignada(s)</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${docentes.map(d => `
+              <tr>
+                <td>${d.nombre} ${d.apellido}</td>
+                <td>${d.dni}</td>
+                <td>${d.materias || 'Sin asignar'}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </body>
+      </html>
+    `;
+  },
+
+  generateEstudiantesSeccionHTML: (estudiantes: any[], seccion: string): string => {
+    return `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="UTF-8">
+        <title>Estudiantes - Sección ${seccion}</title>
+        <style>
+          body { font-family: Arial, sans-serif; padding: 20px; }
+          h1 { color: #1565c0; text-align: center; }
+          table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+          th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+          th { background-color: #f2f2f2; color: #1565c0; }
+        </style>
+      </head>
+      <body>
+        <h1>Listado de Estudiantes - Sección ${seccion}</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre Completo</th>
+              <th>DNI</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${estudiantes.map(e => `
+              <tr>
+                <td>${e.apellido}, ${e.nombre}</td>
+                <td>${e.dni}</td>
+                <td>${e.email}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </body>
+      </html>
+    `;
+  },
+
   generateBoletinHTML: (data: BoletínData): string => {
     const getEstatusColor = (estatus: string) => {
       return estatus === 'aprobado' ? '#4caf50' : '#f44336';
@@ -316,7 +396,15 @@ export const pdfService = {
   generateAndSharePDF: async (data: BoletínData): Promise<boolean> => {
     try {
       const html = pdfService.generateBoletinHTML(data);
-      const fileName = `Boletin_${data.estudiante.dni}_${data.trimestre.nombre.replace(/\s/g, '_')}.pdf`;
+      return await pdfService.shareHTMLasPDF(html, `Boletin_${data.estudiante.dni}.pdf`);
+    } catch (error) {
+      console.error('Error generando PDF:', error);
+      return false;
+    }
+  },
+
+  shareHTMLasPDF: async (html: string, fileName: string): Promise<boolean> => {
+    try {
       const filePath = `${FileSystem.documentDirectory}${fileName}`;
 
       if (Platform.OS === 'web') {
